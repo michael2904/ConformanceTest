@@ -13,7 +13,7 @@ public class CCoinBox
   private boolean allowVend;
 
   //CCoinBox State Machines
-  enum State { empty, notAllowed, allowed }
+  public enum State { empty, notAllowed, allowed }
   private State state;
 
   //------------------------
@@ -26,6 +26,7 @@ public class CCoinBox
     curQtrs = 0;
     allowVend = false;
     setState(State.empty);
+
   }
 
   //------------------------

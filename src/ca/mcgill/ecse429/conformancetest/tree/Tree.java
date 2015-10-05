@@ -11,7 +11,7 @@ import ca.mcgill.ecse429.conformancetest.statemodel.Transition;
 import ca.mcgill.ecse429.conformancetest.statemodel.persistence.PersistenceStateMachine;
 
 public class Tree {
-
+	StateMachine sm;
 	Node root;
 
 	public Tree(String filename) {
@@ -24,7 +24,7 @@ public class Tree {
 		PersistenceStateMachine.loadStateMachine(filename);
 
 		// get the stateMachine
-		StateMachine sm = StateMachine.getInstance();
+		sm = StateMachine.getInstance();
 
 		root = new Node(sm.getStartState());
 		List<Transition> transList = sm.getTransitions();
@@ -36,6 +36,14 @@ public class Tree {
 
 		return this;
 
+	}
+
+	public StateMachine getSm() {
+		return sm;
+	}
+
+	public void setSm(StateMachine sm) {
+		this.sm = sm;
 	}
 
 	// add a node to the tree depending on the transition

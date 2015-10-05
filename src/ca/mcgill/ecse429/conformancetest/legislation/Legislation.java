@@ -11,7 +11,7 @@ public class Legislation
   private boolean isCommonsBill;
 
   //Legislation State Machines
-  enum State { inPreparation, inHouseOfCommons, inSenate, finalized }
+  public enum State { inPreparation, inHouseOfCommons, inSenate, finalized }
   private State state;
 
   //------------------------

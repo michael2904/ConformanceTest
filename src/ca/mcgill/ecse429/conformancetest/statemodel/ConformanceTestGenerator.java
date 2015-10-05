@@ -1,4 +1,4 @@
-package ca.mcgill.ecse429.conformancetest.test;
+package ca.mcgill.ecse429.conformancetest.statemodel;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
-import ca.mcgill.ecse429.conformancetest.statemodel.State;
-import ca.mcgill.ecse429.conformancetest.statemodel.StateMachine;
-import ca.mcgill.ecse429.conformancetest.statemodel.Transition;
 import ca.mcgill.ecse429.conformancetest.tree.Node;
 import ca.mcgill.ecse429.conformancetest.tree.PathTestCase;
 import ca.mcgill.ecse429.conformancetest.tree.Tree;
@@ -37,24 +34,24 @@ public class ConformanceTestGenerator {
 
 		try {
 			st.delete();
+			className ="Test"+ st.getClassName().replace(".java","");
+			String csvOutputFolder = "src/ca/mcgill/ecse429/conformancetest/statemodel";
+			OutputStreamWriter rapport_dataWriter = getOutputStream(
+					csvOutputFolder, className + ".java");
+			String newLine = "package ca.mcgill.ecse429.conformancetest.statemodel;\nimport static org.junit.Assert.assertEquals;\nimport org.junit.Test;\nimport ca.mcgill.ecse429.conformancetest."
+					+ st.getClassName().replace(".java", "").toLowerCase()
+					+ "."
+					+ st.getClassName().replace(".java", "")
+					+ ";\n\n";
+			writeToFile(rapport_dataWriter, newLine, false);
+			writeToFile(rapport_dataWriter, makeClass(), false);
 			for (; testnumber < paths.size(); testnumber++) {
 				vars.clear();
-				className = st.getClassName().replace(".java",
-						"Test" + testnumber);
-				String csvOutputFolder = "src/ca/mcgill/ecse429/conformancetest/test";
-				OutputStreamWriter rapport_dataWriter = getOutputStream(
-						csvOutputFolder, className + ".java");
-				String newLine = "package ca.mcgill.ecse429.conformancetest.test;\nimport static org.junit.Assert.assertEquals;\nimport org.junit.Test;\nimport ca.mcgill.ecse429.conformancetest."
-						+ st.getClassName().replace(".java", "").toLowerCase()
-						+ "."
-						+ st.getClassName().replace(".java", "")
-						+ ";\n\n";
-				writeToFile(rapport_dataWriter, newLine, false);
-				writeToFile(rapport_dataWriter, makeClass(), false);
 				writeToFile(rapport_dataWriter, makeMethod(), false);
-				writeToFile(rapport_dataWriter, "\n}", false);
-				closeFile(rapport_dataWriter);
 			}
+			writeToFile(rapport_dataWriter, "\n}", false);
+			closeFile(rapport_dataWriter);
+
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -65,7 +62,7 @@ public class ConformanceTestGenerator {
 
 	public String makeMethod() {
 		String methodtext = "    @Test\n    public void " + className
-				+ "method() {    	";
+				+testnumber+ "method() {    	";
 
 		PathTestCase path = paths.get(testnumber);
 		ArrayList<Node> arr = path.getPathTestCase();

@@ -2,8 +2,8 @@ package ca.mcgill.ecse429.conformancetest.main;
 
 import java.util.ArrayList;
 
+import ca.mcgill.ecse429.conformancetest.statemodel.ConformanceTestGenerator;
 import ca.mcgill.ecse429.conformancetest.statemodel.StateMachine;
-import ca.mcgill.ecse429.conformancetest.test.ConformanceTestGenerator;
 import ca.mcgill.ecse429.conformancetest.tree.Node;
 import ca.mcgill.ecse429.conformancetest.tree.PathTestCase;
 import ca.mcgill.ecse429.conformancetest.tree.Tree;

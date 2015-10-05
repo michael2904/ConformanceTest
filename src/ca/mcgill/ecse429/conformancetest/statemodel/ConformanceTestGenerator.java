@@ -34,7 +34,7 @@ public class ConformanceTestGenerator {
 
 		try {
 			st.delete();
-			className ="Test"+ st.getClassName().replace(".java","");
+			className ="GeneratedTest"+ st.getClassName().replace(".java","");
 			String csvOutputFolder = "src/ca/mcgill/ecse429/conformancetest/statemodel";
 			OutputStreamWriter rapport_dataWriter = getOutputStream(
 					csvOutputFolder, className + ".java");
@@ -102,8 +102,6 @@ public class ConformanceTestGenerator {
 					.split("; ");
 			for (String func : functions) {
 				if (func.split(" = ").length >= 2) {
-					System.out.println(func.split(" = ")[1].replace(";", "")
-							+ " -  "+ "  value");
 					if(vars.contains(func.split(" = ")[0])){
 						methodtext +="        "+func.split(" = ")[0]
 								+ " = " + func.split(" = ")[1].replace(";", "")
@@ -148,56 +146,7 @@ public class ConformanceTestGenerator {
 			}
 		}
 		methodtext += "        if(" + cond + "){\n";
-		// System.out.println(curNode);
-		if (curNode.getTranParent().getEvent().equals("@ctor")) {
-			methodtext = methodtext + "\n" + makeCtrl();
-		} else {
-			methodtext = methodtext + "\n         _ctrl."
-					+ curNode.getTranParent().getEvent() + "();\n";
-		}
-		methodtext = methodtext + "        assertEquals(\"Invalid state\",\""
-				+ curNode.getState().getName()
-				+ "\", _ctrl.getState().name());\n\n";
-
-		if (curNode.getTranParent().getCondition() != null) {
-			// System.out.println(curNode.getTranParent().getEvent()+"  //  "+curNode.getTranParent().getCondition()+"  //  "+curNode.getTranParent().getAction());
-			String[] functions = curNode.getTranParent().getAction()
-					.split("; ");
-			for (String func : functions) {
-				if (func.split(" = ").length >= 2) {
-					System.out.println(func.split(" = ")[1].replace(";", "")
-							+ " -  " + "  value");
-					if(vars.contains(func.split(" = ")[0])){
-						methodtext +="        "+func.split(" = ")[0]
-								+ " = " + func.split(" = ")[1].replace(";", "")
-								+ ";\n";
-					}
-					else{
-						vars.add(func.split(" = ")[0]);
-						if (func.split(" = ")[1].replace(";", "").equals("true")
-								|| func.split(" = ")[1].replace(";", "").equals(
-										"false")) {
-							methodtext += "        boolean " + func.split(" = ")[0]
-									+ " = "
-									+ func.split(" = ")[1].replace(";", "") + ";\n";
-	
-						} else {
-							methodtext += "        int " + func.split(" = ")[0]
-									+ " = " + func.split(" = ")[1].replace(";", "")
-									+ ";\n";
-	
-						}
-					}
-					methodtext += "        assertEquals(\"Invalid conditions\","
-							+ func.split(" = ")[0]
-						
-							+ ", _ctrl.get"
-							+ Character.toUpperCase(func.split(" = ")[0]
-									.charAt(0))
-							+ func.split(" = ")[0].substring(1) + "());\n";
-				}
-			}
-		}
+		methodtext+= makeInMethodNoCond(curNode);
 		methodtext += "\n        }\n";
 		return methodtext;
 	}

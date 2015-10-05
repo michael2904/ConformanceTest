@@ -4,14 +4,14 @@ import org.junit.Test;
 import ca.mcgill.ecse429.conformancetest.ccoinbox.CCoinBox;
 
 
-public class TestCCoinBox{
+public class GeneratedTestCCoinBox{
     protected CCoinBox _ctrl;
-    enum State {empty,allowed,notAllowed };
+    enum State { };
     private State state;
 
 
     @Test
-    public void TestCCoinBox0method() {    	
+    public void GeneratedTestCCoinBox0method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -29,7 +29,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox1method() {    	
+    public void GeneratedTestCCoinBox1method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -49,7 +49,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox2method() {    	
+    public void GeneratedTestCCoinBox2method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -75,7 +75,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox3method() {    	
+    public void GeneratedTestCCoinBox3method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -103,7 +103,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox4method() {    	
+    public void GeneratedTestCCoinBox4method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -135,13 +135,11 @@ public class TestCCoinBox{
         curQtrs = 0;
         assertEquals("Invalid conditions",curQtrs, _ctrl.getCurQtrs());
         allowVend = false;
-        //error here, ccoinbox does not change
-        _ctrl.setAllowVend(false);
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
     }
 
     @Test
-    public void TestCCoinBox5method() {    	
+    public void GeneratedTestCCoinBox5method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -175,13 +173,11 @@ public class TestCCoinBox{
         curQtrs = 0;
         assertEquals("Invalid conditions",curQtrs, _ctrl.getCurQtrs());
         allowVend = false;
-        //error here, ccoinbox does not change
-        _ctrl.setAllowVend(false);
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
     }
 
     @Test
-    public void TestCCoinBox6method() {      	
+    public void GeneratedTestCCoinBox6method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -208,7 +204,6 @@ public class TestCCoinBox{
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
 
          _ctrl.addQtr();
-         _ctrl.setState(CCoinBox.State.allowed);
         assertEquals("Invalid state","allowed", _ctrl.getState().name());
 
         curQtrs = curQtrs + 1;
@@ -216,7 +211,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox7method() {    	
+    public void GeneratedTestCCoinBox7method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -257,7 +252,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox8method() {    	
+    public void GeneratedTestCCoinBox8method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());
@@ -298,7 +293,7 @@ public class TestCCoinBox{
     }
 
     @Test
-    public void TestCCoinBox9method() {    	
+    public void GeneratedTestCCoinBox9method() {    	
         _ctrl = new CCoinBox();
 
         assertEquals("Invalid state","empty", _ctrl.getState().name());

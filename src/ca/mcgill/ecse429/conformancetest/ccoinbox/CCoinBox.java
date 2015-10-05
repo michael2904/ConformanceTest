@@ -223,7 +223,7 @@ public class CCoinBox
     return wasEventProcessed;
   }
 
-  private void setState(State aState)
+  public void setState(State aState)
   {
     state = aState;
   }

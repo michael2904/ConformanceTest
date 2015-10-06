@@ -249,7 +249,7 @@ public class TestCCoinBox{
         allowVend = true;
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
         if(curQtrs == 2){
-
+        	System.out.println("test1");
          _ctrl.vend();
         assertEquals("Invalid state","empty", _ctrl.getState().name());
 
@@ -290,6 +290,7 @@ public class TestCCoinBox{
         allowVend = true;
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
         if(curQtrs == 3){
+        	System.out.println("test2");
 
          _ctrl.vend();
         assertEquals("Invalid state","notAllowed", _ctrl.getState().name());
@@ -331,6 +332,7 @@ public class TestCCoinBox{
         allowVend = true;
         assertEquals("Invalid conditions",allowVend, _ctrl.getAllowVend());
         if(curQtrs > 3){
+        	System.out.println("test3");
 
          _ctrl.vend();
         assertEquals("Invalid state","allowed", _ctrl.getState().name());

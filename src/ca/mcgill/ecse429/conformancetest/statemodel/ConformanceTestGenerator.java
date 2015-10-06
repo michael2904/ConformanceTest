@@ -23,6 +23,9 @@ public class ConformanceTestGenerator {
 	ArrayList<PathTestCase> paths;
 	ArrayList<String> vars = new ArrayList<String>();
 
+
+	//constructor:
+	//getting the tree, the state machine and the list of paths
 	public ConformanceTestGenerator(Tree tree) {
 		this.tree = tree;
 		this.st = tree.getSm();
@@ -30,6 +33,11 @@ public class ConformanceTestGenerator {
 
 	}
 
+	
+	//method to generate the file
+	//it creates or modifies the file to generate
+	//it also writes the package, imports, class and test methods
+	//for each paths, it generates a new test method
 	public void makeTheFile() {
 
 		try {
@@ -38,12 +46,8 @@ public class ConformanceTestGenerator {
 			String csvOutputFolder = "src/ca/mcgill/ecse429/conformancetest/statemodel";
 			OutputStreamWriter rapport_dataWriter = getOutputStream(
 					csvOutputFolder, className + ".java");
-			String newLine = "package ca.mcgill.ecse429.conformancetest.statemodel;\nimport static org.junit.Assert.assertEquals;\nimport org.junit.Test;\nimport ca.mcgill.ecse429.conformancetest."
-					+ st.getClassName().replace(".java", "").toLowerCase()
-					+ "."
-					+ st.getClassName().replace(".java", "")
-					+ ";\n\n";
-			writeToFile(rapport_dataWriter, newLine, false);
+
+			writeToFile(rapport_dataWriter, makeImport(), false);
 			writeToFile(rapport_dataWriter, makeClass(), false);
 			for (; testnumber < paths.size(); testnumber++) {
 				vars.clear();
@@ -59,7 +63,19 @@ public class ConformanceTestGenerator {
 		}
 
 	}
-
+	//function to generate string for the imports
+	public String makeImport(){
+		String newLine = "package ca.mcgill.ecse429.conformancetest.statemodel;\nimport static org.junit.Assert.assertEquals;\nimport org.junit.Test;\nimport ca.mcgill.ecse429.conformancetest."
+				+ st.getClassName().replace(".java", "").toLowerCase()
+				+ "."
+				+ st.getClassName().replace(".java", "")
+				+ ";\n\n";
+		return newLine;
+	}
+	
+	//function to generate the method in function of the current path.
+	//it generates the method name and calls the function to fill it.
+	//fills the method for each state and the transition also depending on the condition
 	public String makeMethod() {
 		String methodtext = "    @Test\n    public void " + className
 				+testnumber+ "method() {    	";
@@ -83,6 +99,9 @@ public class ConformanceTestGenerator {
 		return methodtext;
 	}
 
+	
+	//function to fill the assertions in function of the state and transition
+	//asserts the state and the values of each value depending on the actions of the transition
 	public String makeInMethodNoCond(Node curNode) {
 		String methodtext = "";
 		// System.out.println(curNode);
@@ -136,7 +155,8 @@ public class ConformanceTestGenerator {
 		}
 		return methodtext;
 	}
-
+	
+	//if transition had condition add the condition
 	public String makeInMethodWithCond(Node curNode, String cond) {
 		String methodtext = "";
 		if(cond.contains("()")){
@@ -150,18 +170,16 @@ public class ConformanceTestGenerator {
 		methodtext += "\n        }\n";
 		return methodtext;
 	}
-
+	
+	
+	//function that makes new object
 	public String makeCtrl() {
 		String ctrl = "        _ctrl = new "
 				+ st.getClassName().replace(".java", "") + "();\n\n";
 		return ctrl;
 	}
-
-	public String makeIntitalAssertions() {
-		String asserttext = "        _ctrl = new " + className + "();\n\n";
-		return asserttext;
-	}
-
+	
+	//function that generates the class
 	public String makeClass() {
 		String classtext = "public class " + className + "{\n    protected "
 				+ st.getClassName().replace(".java", "")
@@ -176,6 +194,9 @@ public class ConformanceTestGenerator {
 		return classtext;
 	}
 
+	
+	// method to get the output stream writer from the foldername and filename
+	//checking if they exist
 	public OutputStreamWriter getOutputStream(String folderName, String fileName)
 			throws IOException {
 		File directory = new File(folderName);
@@ -195,7 +216,9 @@ public class ConformanceTestGenerator {
 
 		return output_writer;
 	}
-
+	
+	
+	//from the outputstream writer, write a content to the file
 	public void writeToFile(OutputStreamWriter output_writer, String content,
 			boolean withFlush) throws IOException {
 		System.out.println(content);
@@ -204,7 +227,7 @@ public class ConformanceTestGenerator {
 			output_writer.flush();
 		}
 	}
-
+	//finish by closing the file
 	public void closeFile(OutputStreamWriter output_writer) throws IOException {
 		output_writer.close();
 	}
